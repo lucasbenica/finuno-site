@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finuno - Seu co-piloto financeiro. Transforme ansiedade em clareza com fôlego financeiro inteligente.">
+    <meta name="theme-color" content="#34C759">
+    <meta name="og:title" content="Finuno - Clareza Financeira">
+    <meta name="og:description" content="Descubra quantos meses você consegue viver com seus recursos atuais.">
+    <meta name="og:url" content="https://finuno.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Finuno - Seu Co-Piloto Financeiro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        @keyframes float-up-down {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        .dot-visualizer-container {
+            width: 100%;
+            height: 360px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(52, 199, 89, 0.1);
+            border: 1px solid #f0fdf4;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breathing-dot {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .dot-label {
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        .comfort-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #9ca3af, transparent);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 24px;
+            z-index: 5;
+        }
+
+        .comfort-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #9ca3af;
+            background: white;
+            padding: 0 8px;
+            text-transform: uppercase;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(52, 199, 89, 0.15);
+        }
+
+        button {
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F2F2F7;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #34C759;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #28CD41;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #34C759 0%, #30D158 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900" style="background-color: #F2F2F7;">
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-emerald-50/20 to-white px-6 md:px-12 lg:px-24 py-16 md:py-0">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Hero Content -->
+                <div class="order-2 lg:order-1">
+                    <div class="mb-8">
+                        <h1 class="text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 mb-6 leading-tight">
+                            Finuno
+                        </h1>
+                        <p class="text-2xl md:text-3xl font-bold gradient-text mb-6">
+                            Seu co-piloto financeiro
+                        </p>
+                    </div>
+                    <p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed font-medium">
+                        Transforme ansiedade em clareza. Finuno mostra <span class="font-bold text-emerald-600">quantos MESES você consegue viver</span> com seus recursos atuais.
+                    </p>
+                    <p class="text-base md:text-lg text-gray-600 mb-10 leading-relaxed">
+                        Não vendemos culpa. Vendemos fôlego. Com apenas 15 min/mês, você domina sua rota financeira.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="https://apps.apple.com/br/app/finuno/id6741170838" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all">
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 13.5c-.91 0-1.82-.45-2.36-1.36.64-1.27 1.02-2.7 1.02-4.14 0-5.25-4.27-9.5-9.5-9.5-1.44 0-2.87.38-4.14 1.02C2.45 4.23 1.5 5.5 1.5 7C1.5 12.25 5.77 16.5 11 16.5c1.5 0 2.93-.39 4.2-1.02-.91-.54-1.45-1.45-1.45-2.48 0-1.59 1.34-2.96 3-2.96 1.59 0 3 1.34 3 3 0 .5-.14.97-.39 1.39"/></svg>
+                            App Store
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.finuno.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center border-2 border-gray-300 hover:border-emerald-500 hover:bg-emerald-50 text-gray-800 hover:text-emerald-700 font-bold py-4 px-8 rounded-2xl transition-all">
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13.5h8v8H3z M13 3h8v8h-8z M3 3h8v8H3z M13 13h8v8h-8z"/></svg>
+                            Play Store
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dot Visualizer Animation -->
+                <div class="order-1 lg:order-2">
+                    <div id="dot-visualizer" class="dot-visualizer-container">
+                        <!-- Comfort Line -->
+                        <div id="comfort-line" class="comfort-line" style="top: 40%;">
+                            <span class="comfort-label">CONFORTO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MANIFESTO SECTION ===== -->
+    <section id="manifesto" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+                    Nosso Manifesto
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    4 princípios que movem Finuno
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Pillar 1 -->
+                <div class="card-hover bg-gradient-to-br from-emerald-50 to-white p-8 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-md">
+                    <div class="text-5xl mb-6">🛡️</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Paz de Espírito</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Não queremos vulnerabilidade. Planejamos com clareza.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="card-hover bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100 shadow-sm hover:shadow-md">
+                    <div class="text-5xl mb-6">⚡</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Bola pra Frente</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Passado é passado. Foco total no seu futuro.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="card-hover bg-gradient-to-br from-pink-50 to-white p-8 rounded-2xl border border-pink-100 shadow-sm hover:shadow-md">
+                    <div class="text-5xl mb-6">💚</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Design é Terapia</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Bonito com propósito. Interface que cura.
+                    </p>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="card-hover bg-gradient-to-br from-purple-50 to-white p-8 rounded-2xl border border-purple-100 shadow-sm hover:shadow-md">
+                    <div class="text-5xl mb-6">😊</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Finança sem Cansa</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Simples, direto, empático. Zero complexidade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FÔLEGO SECTION ===== -->
+    <section id="folego" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-white to-emerald-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+                    O Conceito de Fôlego
+                </h2>
+                <p class="text-xl text-gray-600 leading-relaxed">
+                    A métrica que muda tudo
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl border-2 border-emerald-200 p-10 md:p-16 shadow-lg">
+                <div class="mb-10">
+                    <p class="text-2xl font-bold text-gray-900 mb-6">
+                        <span class="text-emerald-600">Fôlego</span> = Quantos meses você consegue viver com seus recursos atuais
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-medium">
+                        Se você tem 6 meses de fôlego, significa que seu patrimônio cobre 6 meses de despesas. Sem trabalhar. Sem receber nada.
+                    </p>
+                </div>
+
+                <div class="h-1 bg-gradient-to-r from-transparent via-emerald-300 to-transparent my-10"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10">
+                    <!-- Old Way -->
+                    <div class="bg-red-50 p-8 rounded-2xl border border-red-100">
+                        <p class="text-sm font-black text-red-600 uppercase tracking-wide mb-4">❌ Forma Antiga</p>
+                        <h4 class="text-xl font-black text-gray-900 mb-4">Orçamento</h4>
+                        <p class="text-gray-700 leading-relaxed">
+                            "Você gastou R$ 3.500 este mês." Gera culpa sobre o passado. Não muda nada.
+                        </p>
+                    </div>
+
+                    <!-- Finuno Way -->
+                    <div class="bg-emerald-50 p-8 rounded-2xl border-2 border-emerald-300">
+                        <p class="text-sm font-black text-emerald-600 uppercase tracking-wide mb-4">✓ O Jeito Finuno</p>
+                        <h4 class="text-xl font-black text-gray-900 mb-4">Tempo</h4>
+                        <p class="text-gray-700 leading-relaxed">
+                            "Você tem 8 meses de fôlego." Mostra o futuro. Gera ação e clareza.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FUNCIONALIDADES ===== -->
+    <section id="features" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+                    Funcionalidades Principais
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Tudo que você precisa para dominar sua rota
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card-hover bg-white p-10 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg">
+                    <div class="feature-icon bg-blue-100 mb-6">📊</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Projeção de 12 Meses</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Veja seu fôlego financeiro nos próximos 12 meses. Identifique oportunidades e riscos antes que cheguem.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card-hover bg-white p-10 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg">
+                    <div class="feature-icon bg-yellow-100 mb-6">🤖</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">AI Mentor</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Google Gemini transforma seus números em narrativas que fazem sentido. Conselhos inteligentes, personalizados.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card-hover bg-white p-10 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg">
+                    <div class="feature-icon bg-green-100 mb-6">💚</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Apple HIG Design</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Experiência nativa iOS/Android com animations fluidas, haptic feedback e interface intuitiva.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card-hover bg-white p-10 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg">
+                    <div class="feature-icon bg-emerald-100 mb-6">🎯</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Métrica Central: Fôlego</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Todo cálculo converge para uma pergunta clara: "Quantos MESES eu tenho?" Simplicidade com significado.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="card-hover bg-white p-10 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg">
+                    <div class="feature-icon bg-pink-100 mb-6">📈</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Histórico Robusto</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        19+ métricas customizáveis. Gráficos históricos de 14+ meses. Entenda sua evolução financeira.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="card-hover bg-white p-10 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg">
+                    <div class="feature-icon bg-purple-100 mb-6">🔒</div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-3">Segurança Total</h3>
+                    <p class="text-gray-700 leading-relaxed font-medium">
+                        Dados 100% sincronizados e protegidos. Sem rastreamento. Sua privacidade é nossa prioridade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMO FUNCIONA ===== -->
+    <section id="how-it-works" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+                    Como Funciona
+                </h2>
+                <p class="text-xl text-gray-600">
+                    3 passos para clareza total
+                </p>
+            </div>
+
+            <div class="relative">
+                <div class="hidden md:block absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-emerald-300 via-emerald-500 to-emerald-300"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                    <!-- Step 1 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center w-24 h-24 bg-emerald-500 text-white rounded-full mx-auto mb-8 text-4xl font-black shadow-lg relative z-10">1</div>
+                        <h3 class="text-2xl font-black text-gray-900 mb-4">Conecte suas Contas</h3>
+                        <p class="text-gray-700 leading-relaxed font-medium">
+                            Sincronize contas, investimentos e cartões. Seus dados estão 100% seguros.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center w-24 h-24 bg-emerald-500 text-white rounded-full mx-auto mb-8 text-4xl font-black shadow-lg relative z-10">2</div>
+                        <h3 class="text-2xl font-black text-gray-900 mb-4">Finuno Calcula o Fôlego</h3>
+                        <p class="text-gray-700 leading-relaxed font-medium">
+                            Análise automática. Seu patrimônio, liquidez, e 12 meses de projeção em segundos.
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center w-24 h-24 bg-emerald-500 text-white rounded-full mx-auto mb-8 text-4xl font-black shadow-lg relative z-10">3</div>
+                        <h3 class="text-2xl font-black text-gray-900 mb-4">Receba Insights</h3>
+                        <p class="text-gray-700 leading-relaxed font-medium">
+                            IA gera narrativas personalizadas. Você foca em decisões. Finuno foca nos números.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DIFERENCIAL ===== -->
+    <section id="diferential" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+                    Por Que Finuno é Único
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Não é outro app de orçamento
+                </p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-emerald-50 to-transparent border-b-3 border-emerald-300">
+                            <th class="text-left p-6 font-black text-gray-900 text-lg">Característica</th>
+                            <th class="text-left p-6 font-black text-gray-700 text-lg">Apps Tradicionais</th>
+                            <th class="text-left p-6 font-black text-emerald-600 text-lg">Finuno</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-6 font-bold text-gray-900">Foco</td>
+                            <td class="p-6 text-gray-600">Orçamento (história de gastos)</td>
+                            <td class="p-6 text-emerald-600 font-bold">Liberdade (quantos meses tem)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
+                            <td class="p-6 font-bold text-gray-900">Análise</td>
+                            <td class="p-6 text-gray-600">Passado e culpa</td>
+                            <td class="p-6 text-emerald-600 font-bold">Futuro e clareza</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-6 font-bold text-gray-900">IA</td>
+                            <td class="p-6 text-gray-600">Nenhuma ou básica</td>
+                            <td class="p-6 text-emerald-600 font-bold">Google Gemini (narrativas)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
+                            <td class="p-6 font-bold text-gray-900">Projeção</td>
+                            <td class="p-6 text-gray-600">Não existe</td>
+                            <td class="p-6 text-emerald-600 font-bold">12 meses automática</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-6 font-bold text-gray-900">Métrica Central</td>
+                            <td class="p-6 text-gray-600">Múltiplas (confuso)</td>
+                            <td class="p-6 text-emerald-600 font-bold">Uma: Fôlego</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section id="cta" class="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-500 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl md:text-6xl font-black text-white mb-6">
+                Descubra Seu Fôlego
+            </h2>
+            <p class="text-xl md:text-2xl text-emerald-100 mb-12 leading-relaxed">
+                Com apenas 15 minutos, você pode transformar ansiedade em clareza. Comece hoje.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://apps.apple.com/br/app/finuno/id6741170838" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-emerald-600 hover:text-emerald-700 font-black py-4 px-10 rounded-2xl transition-all shadow-xl text-lg">
+                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 13.5c-.91 0-1.82-.45-2.36-1.36.64-1.27 1.02-2.7 1.02-4.14 0-5.25-4.27-9.5-9.5-9.5-1.44 0-2.87.38-4.14 1.02C2.45 4.23 1.5 5.5 1.5 7C1.5 12.25 5.77 16.5 11 16.5c1.5 0 2.93-.39 4.2-1.02-.91-.54-1.45-1.45-1.45-2.48 0-1.59 1.34-2.96 3-2.96 1.59 0 3 1.34 3 3 0 .5-.14.97-.39 1.39"/></svg>
+                    App Store
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.finuno.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-emerald-700 hover:bg-emerald-800 text-white font-black py-4 px-10 rounded-2xl transition-all shadow-xl text-lg border-2 border-white">
+                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13.5h8v8H3z M13 3h8v8h-8z M3 3h8v8H3z M13 13h8v8h-8z"/></svg>
+                    Play Store
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-black text-white border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-2xl font-black text-white mb-4">Finuno</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Seu co-piloto para a liberdade financeira. Transformando números em narrativas que fazem sentido.
+                    </p>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="font-black text-white mb-6 text-lg">Navegação</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#home" class="hover:text-emerald-400 transition-colors font-medium">Home</a></li>
+                        <li><a href="#features" class="hover:text-emerald-400 transition-colors font-medium">Funcionalidades</a></li>
+                        <li><a href="#diferential" class="hover:text-emerald-400 transition-colors font-medium">Por Que Finuno</a></li>
+                        <li><a href="#cta" class="hover:text-emerald-400 transition-colors font-medium">Download</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-black text-white mb-6 text-lg">Legal</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="terms.html" class="hover:text-emerald-400 transition-colors font-medium">Termos de Serviço</a></li>
+                        <li><a href="privacy.html" class="hover:text-emerald-400 transition-colors font-medium">Política de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition-colors font-medium">LGPD</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social -->
+                <div>
+                    <h4 class="font-black text-white mb-6 text-lg">Conecte-se</h4>
+                    <div class="flex gap-4">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-gray-800 hover:bg-emerald-500 rounded-full flex items-center justify-center transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-gray-800 hover:bg-emerald-500 rounded-full flex items-center justify-center transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.057-1.645.069-4.849.069-3.204 0-3.584-.012-4.849-.069-3.259-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-gray-800 hover:bg-emerald-500 rounded-full flex items-center justify-center transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.474-2.23-1.659-2.23-1.027 0-1.637.691-1.905 1.358-.098.237-.122.568-.122.899v5.542h-3.554s.047-8.981 0-9.424h3.554v1.333c.43-.664 1.386-1.611 3.374-1.611 2.464 0 4.314 1.609 4.314 5.06v4.642zM5.337 8.855c-1.144 0-1.915-.758-1.915-1.706 0-.955.768-1.703 1.96-1.703 1.188 0 1.913.748 1.937 1.703 0 .948-.749 1.706-1.982 1.706zm1.582 11.597H3.635V10.28h3.284v10.172zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="mailto:contato@finuno.app" class="w-12 h-12 bg-gray-800 hover:bg-emerald-500 rounded-full flex items-center justify-center transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-500 font-medium">
+                        &copy; 2026 Finuno. Feito com 💚 para sua liberdade financeira.
+                    </p>
+                    <p class="text-gray-600 text-sm">
+                        v1.0 • Seu co-piloto financeiro
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dot Visualizer Animation
+        function initDotVisualizer() {
+            const container = document.getElementById('dot-visualizer');
+            const comfortLine = document.getElementById('comfort-line');
+            
+            const data = [
+                { monthIndex: 1, runwayMonths: 2.5, xPos: 15 },
+                { monthIndex: 3, runwayMonths: 5.2, xPos: 48 },
+                { monthIndex: 6, runwayMonths: 7.8, xPos: 65 },
+                { monthIndex: 12, runwayMonths: 10.5, xPos: 85 },
+            ];
+
+            const minValue = 0;
+            const maxValue = 12;
+            const comfortValue = 6;
+
+            const comfortPercent = ((comfortValue - minValue) / (maxValue - minValue)) * 80 + 10;
+            comfortLine.style.top = comfortPercent + '%';
+
+            data.forEach((point, index) => {
+                const yPercent = ((point.runwayMonths - minValue) / (maxValue - minValue)) * 80 + 10;
+                
+                let color = '#34C759';
+                if (point.runwayMonths < 0) color = '#FF3B30';
+                else if (point.runwayMonths < 4) color = '#FF9500';
+                else if (point.runwayMonths < 12) color = '#34C759';
+                else color = '#a855f7';
+
+                const dot = document.createElement('div');
+                dot.className = 'breathing-dot';
+                dot.style.left = point.xPos + '%';
+                dot.style.bottom = yPercent + '%';
+                dot.style.animation = `float-up-down ${2000 + index * 200}ms ease-in-out infinite, pulse-scale ${1500 + index * 150}ms ease-in-out infinite`;
+                dot.style.transform = 'translateX(-28px)';
+
+                const dotElement = document.createElement('div');
+                dotElement.className = 'dot';
+                dotElement.style.backgroundColor = color;
+                dotElement.style.boxShadow = `0 15px 25px ${color}40`;
+                dotElement.textContent = point.monthIndex;
+
+                const label = document.createElement('div');
+                label.className = 'dot-label';
+                label.textContent = point.runwayMonths.toFixed(1) + ' meses';
+
+                dot.appendChild(dotElement);
+                dot.appendChild(label);
+                container.appendChild(dot);
+            });
+        }
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-hover').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        initDotVisualizer();
+    </script>
+</body>
+</html>
